@@ -1,0 +1,606 @@
+---
+title: "Tema 5: La presentación del dato"
+subtitle: "Introducción a la visualización de datos y ggplot2"
+author: "Modesto Escobar y Cristina Calvo"
+institute: "Grado en Sociología (USAL)"
+date: "Data Science: 30 de abril de 2024"
+output:
+  html_document:
+    theme: cosmo
+    toc: true
+    toc_float:
+      collapsed: true
+      toc_depth: 3
+      smooth_scroll: true 
+      anchor_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{=html}
+<style>
+body {
+  padding-top: 200px; 
+}
+
+.header-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; 
+  height: 100px; 
+  background-image: url(images/bannerDS.jpeg);
+  background-size: cover;
+  background-position: center;
+  z-index: 1000; 
+}
+</style>
+```
+
+
+<br>
+<br>
+<br>
+<br>
+
+# La presentación del dato
+
+Una vez que se han preparado y explorado los datos, se deben comunicarlos a los demás. La presentación efectiva afecta a la comprensión y el impacto de los datos. Dos puntos relacionados:
+
+  - La visualización del dato:
+    
+    - En `ggplot2` (y tidyverse)
+
+  - **La presentación del dato**:
+  
+    - Presentaciones
+    - Informes
+    - Páginas webs
+
+## Objetivos de la clase
+
+  - Control de versiones: Git y GitHub.
+
+   - Aprender técnicas para presentar informes claros y comprensibles.
+   - Uso de **R Mardown**. 
+
+## Tipos de presentación de resultados
+
+  - Trabajos académicos (papers)
+  - Informes
+  - Páginas webs
+  - Presentaciones (diapositivas)
+    
+
+### Trabajos académicos (Papers)
+
+- Uso recomendado: Publicación en revistas científicas.
+- Pros:
+
+  - Contribuyen al conocimiento científico y tienen rigor metodológico.
+  - Sujetos a revisión por pares, mayor calidad y credibilidad.
+
+- Contras:
+
+  - Proceso de publicación puede ser largo y competitivo.
+  - Formato y estilo muy estructurados, lenguaje académico.
+
+### Informes
+
+- Uso recomendado: Documentación de proyectos, resultados para archivo o consulta futura.
+- Pros:
+
+  - Profundidad y detalle en la exposición de información.
+  - Permanentes y fáciles de distribuir.
+
+- Contras:
+
+  - Pueden ser extensos y difíciles de seguir si no están bien estructurados.
+  - Menos dinámicos y atractivos visualmente.
+  
+### Presentaciones (diapositivas)
+
+- Uso recomendado:Reuniones en directo, conferencias, sesiones de grupo.
+- Pros:
+
+  - Permiten interacción directa y feedback inmediato.
+  - Visualmente atractivas, facilitan la exposición de la información.
+
+- Contras:
+
+  - Dependen del tiempo asignado, pueden ser limitadas por restricciones de tiempo.
+  - Requieren habilidades de oratoria y preparación extensa.
+
+### Páginas Web
+
+- Uso recomendado: Compartir resultados accesibles a un público amplio y diverso.
+- Pros:
+
+  - Fácil acceso y actualización.
+  - Interactivas y pueden incluir multimedia y herramientas dinámicas.
+
+- Contras:
+  - Pueden requerir conocimientos técnicos y materiales para su desarrollo y mantenimiento.
+  - Reducción del nivel de complejidad: público amplio.
+
+
+### Otras formas de presentación de resultados
+
+Dashboards (Tableros de control)
+
+- Uso: Monitoreo en tiempo real de KPIs.
+- Pros: Interactivos, actualizables en tiempo real.
+- Contras: Complejos de diseñar y mantener.
+
+Videos
+
+- Uso: Presentaciones a distancia, material educativo.
+- Pros: Dinámicos, retienen la atención, explican complejidades.
+- Contras: Requieren recursos y habilidades de producción.
+
+Infografías
+
+- Uso: Resumen visual para reportes, redes sociales.
+- Pros: Visuales, fáciles de compartir, simplifican la comprensión.
+- Contras: Requieren habilidades de diseño gráfico.
+
+# Control de versiones y colaboración con Git y Github
+
+**Git** es un software de control de versiones que permite seguir los cambios realizados en una carpeta. Es una de las opciones más potentes y más utilizadas para el control de versiones.
+
+Se puede utilizar un cliente/interfaz Git para evitar la línea de comandos y realizar las mismas acciones (al menos para las más sencillas). Si se quiere almacenar una carpeta en un sitio web para colaborar con otros, se puede utilizar una cuenta en **Github**, Gitlab, Bitbucket u otros.
+
+## ¿Por qué utilizar la combinación de Git y Github?
+
+El uso de Git facilita:
+
+- Almacenar versiones de archivos con cambios, de forma que permite volver fácilmente a cualquier estado anterior.
+- Mantener ramas paralelas, es decir, versiones de desarrollo/“trabajo”.
+- Esto también se puede hacer localmente, incluso si no colaboras con otras personas.
+
+Además, se vuelve aún más potente cuando se utiliza con Github. Esto facilita:
+
+- Colaboración: otros pueden revisar, comentar y aceptar o rechazar los cambios.
+- Compartir el código, los datos y los resultados, e invitar a hacer comentarios al público.
+
+## Configuración
+
+Regístrate para obtener una cuenta gratuita en **github.com**.
+
+Es posible que se te ofrezca configurar la autenticación de dos pasos con una aplicación en tu teléfono. Lee más en estos documentos de ayuda de Github.
+
+Si usas Github Desktop, puedes introducir tus credenciales de Github después de la instalación siguiendo estos pasos. Si no lo haces, las credenciales se te pedirán más tarde cuando intentes clonar un proyecto desde Github.
+
+## Vocabulario, conceptos y funciones básicas
+
+- **Repositorio**: Un repositorio Git (“repo”) es una carpeta que contiene todas las subcarpetas y archivos de tu proyecto y sus historiales de revisión. 
+
+- **Commits** (Consolidaciones): Cuando realices un cambio en el proyecto, hay que ejecutar `commit` para consolidar estos cambios realizados en tus archivos. 
+
+Cada commit tiene un ID único (hash). Para el control de versiones, puedes revertir tu proyecto en base a estas. También realizarás una breve descripción de los cambios llamada “commit message (mensaje de consolidación)”. 
+
+- Ramas (**Branches**)
+
+Una rama representa una línea independiente de cambios en su repo, una versión paralela y alternativa de los archivos del proyecto.
+
+Las ramas son útiles para probar los cambios antes de incorporarlos a la rama principal (main, master). Cuando termines de probar en una rama, puedes incorporar los cambios a tu rama principal, fusionándola, o eliminarla, si los cambios no fueron tan exitosos.
+
+Nota: no es necesario colaborar con otras personas para utilizar las ramas, ni es necesario tener un repositorio remoto en línea.
+
+- Repositorios locales y remotos
+
+El repositorio LOCAL es el ordenador físico. Aquí es donde se hacen los cambios reales a los archivos/código. El repositorio REMOTO, en línea: las versiones de los archivos del proyecto en el repositorio Github (o en cualquier otro alojamiento web).
+
+Para sincronizar estos repositorios, utilizaremos más funciones.**Git no actualiza automáticamente el repositorio local en base a lo que está en línea, o viceversa**. Tú eliges cuándo y cómo sincronizarlo.
+
+## Crear un nuevo repositorio en Github
+
+Para crear un nuevo repositorio, entra en Github y busca el botón verde para crear un nuevo repositorio. Este repositorio, ahora vacío, puede ser clonado localmente en tu ordenador.
+
+- Debes elegir si quieres que tu repositorio sea público (visible para todo el mundo en Internet) o privado (sólo visible para aquellos con permiso). 
+  
+## Nuevo repositorio de Github a partir de un proyecto R existente
+
+Un escenario alternativo de configuración es que ya tengas un proyecto R con contenido, y quieras crear un repositorio Github para él.
+
+- Crea un nuevo repositorio de Github vacío para el proyecto
+
+- Clona este repositorio localmente
+
+- Copia todo el contenido de tu proyecto R preexistente (códigos, datos, etc.) en este nuevo repositorio local vacío.
+
+- Abre tu nuevo proyecto en RStudio, y ve al panel Git. Los nuevos archivos deberían registrarse como cambios de archivo, ahora rastreados por Git. Por lo tanto, puedes agrupar estos cambios bajo un commit y push a Github. Una vez hecho push, el repositorio en Github reflejará todos los archivos.
+
+## Clonar desde un repositorio de Github
+
+Puedes clonar un repositorio de Github existente para crear un nuevo proyecto R local en tu ordenador.
+
+El repositorio de Github puede ser uno que ya existe y tiene contenido, o puede ser un repositorio vacío que acabas de crear. En este último caso, básicamente estás creando el repositorio de Github y el proyecto local de R al mismo tiempo (ver las instrucciones anteriores).
+
+Paso 1: Navega en Github hasta el repositorio, clica en el botón verde “Code” y copia la HTTPS clon URL
+
+Paso 2: En RStudio, inicia un nuevo proyecto R clicando en File>New project > Version control > Git) (Archivo > Nuevo proyecto > Control de versiones > Git)
+
+  - Cuando te pida la “URL del repositorio”, pega la URL HTTPS de Github
+
+  - Asigna al proyecto R un nombre corto e informativo
+
+  - Elige dónde se guardará el nuevo proyecto R localmente
+
+  - Marca “Abrir en una nueva sesión” y selecciona en “Crear proyecto”.
+  
+### Ejemplo práctico: clonar el repositorio de la clase
+
+Entra en https://github.com/cristinacalvolopez/DataScience24 y sigue las instrucciones.
+  
+## Control de versiones en RStudio: la pestaña “Git”.
+
+\center ![](images/Git_console.png)
+
+- **Botón commit** para consolidar los cambios del archivo guardado en local (se abrirá una nueva ventana para añadir la descripción y confirmarlo)
+
+- **Flecha azul pull** (descarga los cambios realizados en la versión remota/Github de esa rama y actualiza tu versión local de la rama)
+
+- **Flecha verde push** (enviar cualquier commits/cambio de tu versión local de la rama y actualiza la versión remota/Github de esa rama)
+
+## Flujo de trabajo Git + Github
+
+- Asegúrate de que tu repositorio local está actualizado.
+- Trabaja localmente, haz uno o varios commits a una rama separada.
+- Actualiza la versión remota de la rama con tus cambios (push).
+- Fusiona con la rama principal.
+
+\center ![](images/GitHub-Flow.png)
+
+
+# RMarkdown
+
+[**R Markdown**](https://es.r4ds.hadley.nz/r-markdown.html) es una herramienta ampliamente utilizada para crear documentos de salida automatizados y reproducibles. Es la implementación de [**Markdown**](https://es.wikipedia.org/wiki/Markdown) en R, el cual es un lenguaje de marcado ligero, que permite configurar formatos de texto en forma básica siendo fácil de editar y fácil de leer.
+
+
+## Rmarkdown
+
+Un script de R Markdown intercala código R y texto de tal manera que el script se convierte en el documento de salida. Puede crear un documento completo con formato, incluyendo texto narrativo (el texto puede ser dinámico y cambiar en función de sus datos), tablas, figuras, viñetas/números, bibliografías, etc.
+
+Un archivo R Markdown (.Rmd) se puede exportar a [múltiples formatos](https://rmarkdown.rstudio.com/formats.html) y estos se incrementan aún más con el apoyo de otros paquetes: [html](https://bookdown.org/yihui/rmarkdown/html-document.html), [pdf](https://bookdown.org/yihui/rmarkdown/pdf-document.html), [word](https://bookdown.org/yihui/rmarkdown/word-document.html), [notebook](https://bookdown.org/yihui/rmarkdown/notebook.html), [presentaciones](https://bookdown.org/yihui/rmarkdown/presentations.html) ([xaringan](https://bookdown.org/yihui/rmarkdown/xaringan.html), [ioslides](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html), [revealjs](https://bookdown.org/yihui/rmarkdown/revealjs.html)), [dashboard](https://rmarkdown.rstudio.com/flexdashboard/), [libros](https://bookdown.org/), [páginas web](https://bookdown.org/yihui/blogdown/), [shiny apps](https://rmarkdown.rstudio.com/authoring_shiny.html%2F), [pósteres](https://github.com/brentthorne/posterdown), etc.
+]]
+
+## Primeros pasos con R Mardown: Instalación
+
+Para crear una salida de R Markdown, necesitas tener instalado lo siguiente:
+
+- El paquete `rmarkdown` (knitr también se instalará automáticamente)
+- `Pandoc`, que debería venir instalado con RStudio.
+- Si se quiere generar una salida en PDF, necesitarás instalar `LaTeX.` Instalación en: `TinyTeX` (https://yihui.name/tinytex/)https://yihui.name/tinytex/).
+
+```{r, eval=FALSE, echo=TRUE, message=FALSE}
+pacman::p_load(tinytex)     
+tinytex::install_tinytex()
+install.packages("rmarkdown")
+```
+
+## Generar un archivo `Rmarkdown`
+
+1. Ir a File -> New File -> R Markdown...
+2. En la sección de `Document` indicar el título y nombre de autor (esto se puede modificar luego).
+3. Guardar el archivo `.Rmd`
+4. Con la opción de `Knit` se puede generar un archivo **hmtl**.
+
+```{r, out.width="100%", echo = FALSE}
+knitr::include_graphics("images/new_rmarkdown_1.png", dpi = 600)
+```
+
+\center 
+
+```{r, out.width="70%", echo = FALSE}
+knitr::include_graphics("images/new_rmarkdown_2.png", dpi = 600)
+```
+
+### Sobre el directorio de trabajo
+
+El directorio de trabajo de un archivo markdown es el lugar donde se guarda el propio archivo Rmd. 
+
+- Si el proyecto R está dentro de "~/Documents/projectX" y el archivo Rmd en una subcarpeta ("~/Documents/projectX/markdownfiles/markdown.Rmd"), el código read.csv("data.csv") dentro del markdown buscará un archivo csv en la carpeta "markdownfiles", y no en la carpeta raíz del proyecto.
+- Para referirse a archivos en otro lugar, usa la ruta completa del archivo. Ten en cuenta que no se recomienda el uso de setwd() en los scripts de R Markdown - sólo se aplica al trozo de código en el que está escrito.
+
+Trabajar en local:
+
+- Debido a que R Markdown puede tener problemas con `pandoc` cuando se ejecuta en una carpeta compartida, se recomienda que la carpeta esté ubicada en local.
+
+Trabajar con versiones:
+
+- Es recomendable el trabajo en repositorios con control de cambios- véase Git/GitHub.
+
+## Componentes de un archivo Rmd
+
+Un documento R Markdown puede ser editado en RStudio igual que un script estándar de R. Cuando se inicia un nuevo script de R Markdown, RStudio intenta ayudarnos mostrando una plantilla que explica las diferentes secciones de un script de R Markdown.
+
+**Componentes básicos:**
+
+- Encabezado YAML- básico
+- Cuerpo
+
+  - Formato: cursiva, negrita, cursiva-negrita, código, hipervínculos
+  - Configurar un *chunk* de código
+  - Insertar imágenes, pdf
+
+- Personalización
+
+\center ![](images/2_defaultRMD.png){height=200%}
+
+
+## Encabezado YAML
+
+El encabezado de un `Rmd` contiene los metadatos del archivo, formato general del output y, en ocasiones, estilos personalizados (css), entre otros aspectos.
+
+Esta sección debe comenzar con una línea con tres guiones --- y debe cerrar de igual manera ---. Los parámetros YAML vienen en pares `key:value`. Es importante que estén separados por : no por =.
+
+Este es el formato `YAML` básico con el que se inicia al generar un archivo `Rmd`.
+
+```yaml
+---
+title: "Tema 5: La presentación del dato"
+author: "Modesto Escobar y Cristina Calvo"
+date: "Data Science: 7 de mayo de 2024"
+output: html_document
+---
+```
+
+El formato `YAML` puede contener más información y personalización. Esto dependerá de la configuración del output.
+
+Algunos metadatos adicionales, que podrían usarse:
+
+\tiny
+
+```yaml
+---
+title: "Tema 5: La presentación del dato"
+subtitle: "Presentación de informes y comunicación efectiva de datos"
+author: "Modesto Escobar y Cristina Calvo"
+institute: "Grado en Sociología (USAL)"
+date: "Data Science: 7 de mayo de 2024"
+output:
+  beamer_presentation:
+    slide_level: 3
+    theme: "metropolis"
+    colortheme: "rose"
+    fonttheme: "professionalfonts"
+    number_sections: true
+---
+```
+
+### Encabezado YAML - Outputs
+
+Documentos:
+
+- `pdf_document`: Utiliza LaTeX para generar documentos PDF de alta calidad.
+- `word_document`: Genera documentos en formato .docx que pueden ser abiertos y editados en Microsoft Word.
+- `html_document`: Produce un archivo HTML que puede ser visualizado en navegadores web.
+- rticles::`rtf_document`: Crea un documento en formato Rich Text Format, compatible con la mayoría de los procesadores de texto.
+
+Presentaciones:
+
+- `beamer_presentation`: Presentaciones en PDF con LaTeX.
+- `powerpoint_presentation`: Presentaciones en PowerPoint.
+- `ioslides_presentation`: Produce una presentación HTML5 visualizables en navegadores web.
+- `slidy_presentation`: Otra herramienta HTML5 para presentaciones en web.
+
+Otros:
+
+- `notebook`: Para generar cuadernos interactivos donde se puede ejecutar código en vivo.
+- `shiny::shiny_document`: Usa Shiny para la crear webs interactivas y documentos dinámicos.
+
+![](images/rm_descarga.png)
+
+## Cuerpo
+
+Esta es la narrativa del documento, incluyendo los títulos y encabezados. Está escrito en el lenguaje “markdown”, que se utiliza en muchos otros programas.
+
+No es necesario marcar nada para escribir texto plano. 
+
+### Cuerpo: Formato de texto
+
+Rodea el texto normal con estos caracteres para cambiar su apariencia en la salida.
+
+- Guiones bajos (_) o un asterisco simple (*) para poner en cursiva (itálica)
+- Doble asterisco (**) para el texto en negrita
+- Comillas invertidas (`) para mostrar el texto como código
+- El aspecto real de la fuente puede establecerse utilizando plantillas específicas (especificadas en los metadatos YAML; ver sub-secciones de este capitulo).
+
+Ejemplos:
+
+Formato  *cursiva*, **negrita**, ***cursiva-negrita***, `código` e [hipervínculo](https://es.wikipedia.org/wiki/Hiperenlace)]
+
+```
+*Este texto está en cursiva*
+```
+
+*Este texto está en cursiva*
+
+```
+**Ahora, este texto está en negrita**
+```
+
+**Ahora, este texto está en negrita**
+
+```
+***Este último contiene ambos: negrita-cursiva***
+```
+
+***Este último contiene ambos: negrita-cursiva***
+
+```
+`Este texto será mostrado como código`
+```
+
+`Este texto será mostrado como código`
+
+```
+Esta data de ` r nrow(mtcars)` casos... 
+```
+
+Esta data de ` r nrow(mtcars)` casos... 
+
+```
+*[Rmarkdown](https://bookdown.org/yihui/rmarkdown)
+```
+
+[Rmarkdown](https://bookdown.org/yihui/rmarkdown)
+
+
+### Cuerpo: Encabezados
+
+Una almohadilla (#) delante de un texto en un script de R Markdown crea un encabezado. Esto es diferente que en un trozo de código R en el script, en el que un símbolo de almohadilla permite comentar/anotar/desactivar, como en un script normal de R.
+
+Los distintos niveles de encabezamiento se establecen con diferentes números almohadillas al comienzo de una nueva línea.
+
+```
+# Encabezamiento / título de primer nivel
+## Encabezamiento de segundo nivel
+### Encabezamiento de tercer nivel
+```
+
+### Cuerpo: Listas y viñetas
+
+También es posible añadir listas enumeradas y/o viñetas dentro de la redacción.
+
+Pueden usarse:
+
+- Números (1.)
+- Guines (-)
+- Símbolo de suma (+)
+- Sangrías para marcar subniveles
+
+
+Ejemplo: 
+
+* 1. Primera numeración
+
+* 1. Segunda numeración
+
+*     - Primera viñeta
+
+*         + Una subviñeta viñeta
+
+*     - Segunda viñeta
+
+* 1. Tercera numeración
+
+
+1. Primera numeración
+
+1. Segunda numeración
+
+   - Primera viñeta
+   
+      + Una subviñeta viñeta
+
+   - Segunda viñeta
+
+1. Tercera numeración
+
+### Cuerpo: Imágenes
+
+Existen 3 formas de hacerlo:
+
+#### 1. Código CSS
+
+```
+![](https://rmarkdown.png){width=30%}
+```
+
+#### 1. Código HTML
+
+```
+<img src="https://rmarkdown.png" width="300px"/>
+```
+
+#### 1. Código R
+
+```{r, echo=FALSE, comment=""}
+cat(c("```{r, echo=FALSE, , out.width = '30%'}",
+      "knitr::include_graphics('rmarkdown.png', 
+      dpi = 600) ",
+      "```"), 
+    sep='\n')
+```
+
+## Cuerpo:  Tablas
+
+Crea una tabla utilizando guiones ( - ) y barras ( | ). El número de guiones entre las barras determina el número de espacios en la celda a patrir del cual el texto comienza a crearse
+
+```
+Column  1 |Column   2 |Column 3
+----------|-----------|--------
+Cell A    |Cell B     |Cell C
+Cell D    |Cell E     |Cell F
+```
+
+El código anterior produce la siguiente tabla:
+
+Column  1 |Column   2 |Column 3
+----------|-----------|--------
+Cell A    |Cell B     |Cell C
+Cell D    |Cell E     |Cell F
+
+
+## Código (chunks)
+
+Las secciones del script con código R se denominan “chunks” o trozos. En ellos se pueden cargar paquetes, importar datos y realizar el análisis y visualización de datos. 
+
+Cada trozo se abre con una línea que comienza con tres comillas invertidas y corchetes que contienen parámetros para el trozo ({ }). El trozo termina con otras tres comillas invertidas.
+
+Ejemplo: 
+
+Código:
+
+![](images/codigo.png)
+
+Salida:
+
+```{r}
+head(mtcars)
+```
+
+Tipos:
+
+Existen alrededor de [60 configuraciones](https://yihui.org/knitr/options/) de salidas de código. Estas pueden combinarse entre sí (separadas por coma) mientras tengan sentido:
+
+- `eval = FALSE`: No ejecuta código
+
+- `include = FALSE`: Ejecuta código pero no muestra el resultado.
+
+- `echo = FALSE`: Ejecuta código y muestra el output. Pero el código se mantiene oculto.
+
+- `message = FALSE`: Evita que se muestren mensajes de ejecución.
+
+- `warning = FALSE`: No muestra mensajes warnings (advertencia)
+
+- `error = TRUE`: La compilación del documento continúa apesar de errores.
+
+- `out.width =` y `out.height =` - asigna proporciones de ancho y largo, por ejemplo `out.width = "75%"`
+- `fig.align = "center"` ajusta cómo se alinea una figura en la página
+- `fig.show = 'hold'` si se imprimen múltiples figuras y se desea imprimirlas una al lado de la otra se puede usar la función `out.width = c("33%", "67%")`. También se puede establecer como - `fig.show='asis'` para mostrarlas debajo del código que las genera, '`hide`' para ocultarlas, o '`animate`' para concatenar varias figuras en una animación.
+
+La cabecera de un trozo debe escribirse en una sola línea.
+Evita puntos, barras bajas y espacios. Utiliza guiones ( - ) si necesitas un separador.
+
+También se pueden insertar en el texto:
+
+\center ![](images/3_chunktext.png)
+
+## Tejer el documento
+
+Puedes generar el documento de las siguientes maneras:
+
+- Manualmente haciendo click sobre el botón “`Knit`” en la parte superior del editor de scripts de RStudio (rápido y fácil).
+- Ejecutando el comando `render()` en la consola R (ejecutado fuera del script de R Markdown).
+
+# Práctica
+
+- Debe crearse un repositorio para cada grupo del trabajo final de la asignatura. Solo un miembro del equipo debe crearlo. El repositorio debe estar en oculto, pero debe compartirse tanto con los otros miembros del equipo como con los profesores (modesto@usal.es y cristinacalvolopez@usal.es).
+
+- Crear el README.md del proyecto. Deben especificarse las partes del trabajo final, así como el título, autores y otras cuestiones relevantes.
+- Cada uno de los miembros del equipo debe hacer al menos un commit a este repositorio antes del lunes 13 de mayo.
