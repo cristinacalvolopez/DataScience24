@@ -1,0 +1,45 @@
+
+---
+title: "Ejemplo de Documento Word en R Markdown"
+author: "Tu Nombre"
+date: "`r format(Sys.Date(), '%d de %B, %Y')`"
+output: word_document
+---
+
+# Introducción
+
+Este es un ejemplo simple de cómo crear un documento Word usando R Markdown.
+
+## Datos
+
+A continuación, presentaremos un resumen de algunos datos ficticios.
+
+```{r}
+# Generando datos ficticios
+datos <- data.frame(
+  Grupo = c("A", "B", "C", "D"),
+  Valor = c(20, 25, 15, 10)
+)
+
+# Mostrando los datos
+datos
+```
+
+## Gráfico
+
+Visualizamos los datos en un gráfico de barras.
+
+```{r, echo=FALSE}
+# Cargando librería para gráficos
+library(ggplot2)
+
+# Creando el gráfico
+ggplot(datos, aes(x=Grupo, y=Valor, fill=Grupo)) +
+  geom_bar(stat="identity") +
+  theme_minimal() +
+  labs(title="Distribución de Valores por Grupo", y="Valor", x="Grupo")
+```
+
+## Conclusión
+
+Este es solo un ejemplo básico de lo que puedes hacer con R Markdown para generar documentos Word dinámicos y reproducibles.
