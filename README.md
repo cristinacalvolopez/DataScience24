@@ -21,3 +21,4 @@ Grado en Sociología (USAL)
   - Creación de documentos pdf
   - Creación de documentos word
   - Creación de diapositivas
+  - Shiny app
