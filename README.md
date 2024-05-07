@@ -5,6 +5,7 @@
 ### Presentación de informes y comunicación efectiva de datos
 
 Modesto Escobar y Cristina Calvo
+
 Grado en Sociología (USAL)
 
 # Objetivos de la clase
