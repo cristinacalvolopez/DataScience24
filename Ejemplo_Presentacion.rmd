@@ -1,0 +1,53 @@
+
+---
+title: "Ejemplo de Presentación en R Markdown"
+author: "Tu Nombre"
+date: "`r format(Sys.Date(), '%d de %B, %Y')`"
+output: 
+  ioslides_presentation: default
+---
+
+## Diapositiva 1: Introducción
+
+Bienvenidos a nuestra presentación de R Markdown.
+
+- R Markdown permite crear presentaciones dinámicas.
+- Fácil de escribir y compartir.
+
+## Diapositiva 2: Datos
+
+Aquí presentamos algunos datos simples.
+
+```{r}
+# Generando datos ficticios
+datos <- data.frame(
+  Grupo = c("A", "B", "C", "D"),
+  Valor = c(20, 25, 15, 10)
+)
+
+# Mostrando los datos
+datos
+```
+
+## Diapositiva 3: Gráfico
+
+Visualizamos los datos en un gráfico de barras.
+
+```{r, echo=FALSE}
+# Cargando librería para gráficos
+library(ggplot2)
+
+# Creando el gráfico
+ggplot(datos, aes(x=Grupo, y=Valor, fill=Grupo)) +
+  geom_bar(stat="identity") +
+  theme_minimal() +
+  labs(title="Distribución de Valores por Grupo", y="Valor", x="Grupo")
+```
+
+## Diapositiva 4: Conclusión
+
+- R Markdown es una herramienta poderosa para presentaciones.
+- Permite la integración de código y resultados en tiempo real.
+
+---
+
