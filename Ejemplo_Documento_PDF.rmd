@@ -1,0 +1,47 @@
+
+---
+title: "Ejemplo de Documento PDF en R Markdown"
+author: "Tu Nombre"
+date: "`r format(Sys.Date(), '%d de %B, %Y')`"
+output: pdf_document
+header-includes:
+   - \usepackage{booktabs}
+---
+
+# Introducción
+
+Este es un ejemplo simple de cómo crear un documento PDF usando R Markdown.
+
+## Datos
+
+A continuación, presentaremos un resumen de algunos datos ficticios.
+
+```{r}
+# Generando datos ficticios
+datos <- data.frame(
+  Grupo = c("A", "B", "C", "D"),
+  Valor = c(10, 15, 7, 8)
+)
+
+# Mostrando los datos
+knitr::kable(datos, format = "latex", booktabs = TRUE)
+```
+
+## Gráfico
+
+Visualizamos los datos en un gráfico de barras.
+
+```{r}
+# Cargando librería para gráficos
+library(ggplot2)
+
+# Creando el gráfico
+ggplot(datos, aes(x=Grupo, y=Valor, fill=Grupo)) +
+  geom_bar(stat="identity") +
+  theme_minimal() +
+  labs(title="Gráfico de Barras", y="Valor", x="Grupo")
+```
+
+## Conclusión
+
+Este es solo un ejemplo básico de lo que puedes hacer con R Markdown para generar documentos PDF dinámicos y reproducibles.
