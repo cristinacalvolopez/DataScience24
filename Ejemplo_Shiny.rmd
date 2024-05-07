@@ -1,0 +1,47 @@
+
+---
+title: "Ejemplo de Aplicación Shiny en R Markdown"
+author: "Tu Nombre"
+date: "`r format(Sys.Date(), '%d de %B, %Y')`"
+output: html_document
+runtime: shiny
+---
+
+# Introducción
+
+Esta es una aplicación simple de Shiny integrada en R Markdown.
+
+## Entrada de Usuario
+
+```{r echo=FALSE}
+library(ggplot2)
+# Creando un input para seleccionar un grupo
+selectInput("grupo", "Seleccione un grupo:", choices = c("A", "B", "C", "D"))
+```
+
+## Datos y Gráfico
+
+```{r}
+# Datos ficticios
+datos <- data.frame(
+  Grupo = c("A", "B", "C", "D"),
+  Valor = c(20, 25, 15, 10)
+)
+
+# Filtrar datos según la selección del usuario
+datos_filtrados <- reactive({
+  datos[datos$Grupo == input$grupo, ]
+})
+
+# Renderizando un gráfico de barras basado en la selección
+renderPlot({
+  ggplot(datos_filtrados(), aes(x=Grupo, y=Valor, fill=Grupo)) +
+    geom_bar(stat="identity") +
+    theme_minimal() +
+    labs(title=paste("Valor para el grupo", input$grupo), y="Valor", x="Grupo")
+})
+```
+
+## Conclusión
+
+Esta aplicación de Shiny demuestra cómo interactuar con el usuario y visualizar datos dinámicamente.
