@@ -1,5 +1,3 @@
-PROBANDO
-
 # Data Science 2024
 
 ## Tema 5: La presentación del dato
